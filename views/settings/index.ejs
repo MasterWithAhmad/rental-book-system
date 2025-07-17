@@ -1,43 +1,81 @@
-<h2>Settings</h2>
-<div class="row">
+<h2 class="mb-4">Settings</h2>
+<div class="row g-4">
   <div class="col-md-6">
-    <h4>Profile</h4>
-    <form action="/settings/profile" method="POST" class="row g-3 mb-4">
-  <div class="col-12">
-    <label for="full_name" class="form-label">Full Name</label>
-    <input type="text" class="form-control" id="full_name" name="full_name" value="<%= profile.full_name %>" required>
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Update Profile</button>
-  </div>
-</form>
-    <h4>Change Password</h4>
-    <form action="/settings/password" method="POST" class="row g-3" style="max-width:400px;">
-      <div class="col-12">
-        <label for="old_password" class="form-label">Old Password</label>
-        <input type="password" class="form-control" id="old_password" name="old_password" required>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <div class="profile-avatar bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width:56px;height:56px;font-size:2rem;">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <div>
+            <h4 class="mb-0">Profile</h4>
+            <div class="text-muted small">Update your personal information</div>
+          </div>
+        </div>
+        <form action="/settings/profile" method="POST" class="row g-3 mb-4">
+          <div class="col-12">
+            <label for="full_name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" value="<%= profile.full_name %>" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+          </div>
+        </form>
       </div>
-      <div class="col-12">
-        <label for="new_password" class="form-label">New Password</label>
-        <input type="password" class="form-control" id="new_password" name="new_password" required>
+    </div>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <i class="bi bi-shield-lock fs-3 text-primary me-2"></i>
+          <div>
+            <h4 class="mb-0">Change Password</h4>
+            <div class="text-muted small">Keep your account secure</div>
+          </div>
+        </div>
+        <form action="/settings/password" method="POST" class="row g-3" style="max-width:400px;">
+          <div class="col-12">
+            <label for="old_password" class="form-label">Old Password</label>
+            <input type="password" class="form-control" id="old_password" name="old_password" required>
+          </div>
+          <div class="col-12">
+            <label for="new_password" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="new_password" name="new_password" required>
+          </div>
+          <div class="col-12">
+            <label for="confirm_password" class="form-label">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-success w-100">Change Password</button>
+          </div>
+        </form>
+        <% if (error) { %>
+          <div class="alert alert-danger mt-3"><%= error %></div>
+        <% } %>
+        <% if (success) { %>
+          <div class="alert alert-success mt-3"><%= success %></div>
+        <% } %>
       </div>
-      <div class="col-12">
-        <label for="confirm_password" class="form-label">Confirm New Password</label>
-        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-success">Change Password</button>
-      </div>
-    </form>
-    <% if (error) { %>
-      <div class="alert alert-danger mt-3"><%= error %></div>
-    <% } %>
-    <% if (success) { %>
-      <div class="alert alert-success mt-3"><%= success %></div>
-    <% } %>
+    </div>
   </div>
   <div class="col-md-6">
-    <h4>Preferences</h4>
-    <div class="alert alert-info">Preferences coming soon! (e.g., notification settings, dashboard layout)</div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <i class="bi bi-sliders fs-3 text-info me-2"></i>
+          <div>
+            <h4 class="mb-0">Preferences</h4>
+            <div class="text-muted small">Customize your experience</div>
+          </div>
+        </div>
+        <div class="alert alert-info mb-0">Preferences coming soon! (e.g., notification settings, dashboard layout)</div>
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+.profile-avatar {
+  background: linear-gradient(135deg, #6c757d 60%, #adb5bd 100%);
+}
+</style>
