@@ -1,9 +1,10 @@
 /* Mini sidebar: show only icons, hide text when collapsed */
 /* Clean, professional icon-only sidebar */
-#wrapper {
-  display: flex;
-}
 #sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
   width: 220px;
   min-width: 60px;
   max-width: 220px;
@@ -13,10 +14,12 @@
   flex-direction: column;
   z-index: 100;
 }
-#wrapper.sidebar-collapsed #sidebar-wrapper {
-  width: 60px;
-  min-width: 60px;
-  max-width: 60px;
+#wrapper {
+  margin-left: 220px;
+  transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+#wrapper.sidebar-collapsed {
+  margin-left: 60px;
 }
 #sidebar-wrapper .sidebar-heading {
   transition: padding 0.3s, font-size 0.3s;
