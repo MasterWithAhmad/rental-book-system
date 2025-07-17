@@ -59,20 +59,43 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm border-danger">
       <div class="card-body">
         <div class="d-flex align-items-center mb-3">
-          <i class="bi bi-sliders fs-3 text-info me-2"></i>
+          <i class="bi bi-exclamation-octagon fs-3 text-danger me-2"></i>
           <div>
-            <h4 class="mb-0">Preferences</h4>
-            <div class="text-muted small">Customize your experience</div>
+            <h4 class="mb-0 text-danger">Danger Zone</h4>
+            <div class="text-muted small">Proceed with caution</div>
           </div>
         </div>
-        <div class="alert alert-info mb-0">Preferences coming soon! (e.g., notification settings, dashboard layout)</div>
+        <form action="/settings/delete-account" method="POST" onsubmit="return confirmDeleteAccount();">
+          <div class="mb-3">
+            <label for="delete_password" class="form-label">Enter your password to delete your account</label>
+            <input type="password" class="form-control" id="delete_password" name="password" required>
+          </div>
+          <button type="submit" class="btn btn-outline-danger w-100">Delete My Account</button>
+        </form>
+        <hr>
+        <form action="/settings/factory-reset" method="POST" onsubmit="return confirmFactoryReset();">
+          <div class="mb-3">
+            <label for="reset_confirm" class="form-label">Type <b>RESET</b> to confirm factory reset</label>
+            <input type="text" class="form-control" id="reset_confirm" name="reset_confirm" pattern="RESET" required autocomplete="off">
+          </div>
+          <button type="submit" class="btn btn-danger w-100">Factory Reset</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+function confirmDeleteAccount() {
+  return confirm('Are you sure you want to delete your account? This action cannot be undone.');
+}
+function confirmFactoryReset() {
+  return confirm('Are you sure you want to factory reset the system? This will erase all data and cannot be undone.');
+}
+</script>
 
 <style>
 .profile-avatar {
