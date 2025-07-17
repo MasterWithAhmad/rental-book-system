@@ -1,0 +1,18 @@
+/* Sidebar collapse transition for smooth animation */
+#sidebar-wrapper {
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1), min-width 0.3s, max-width 0.3s, transform 0.3s;
+  will-change: width, transform;
+}
+/* Removed all hiding/transform rules for .collapsed. Sidebar now only shrinks via width/flex-basis. */
+#wrapper {
+  transition: padding-left 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+#wrapper.sidebar-collapsed {
+  padding-left: 0 !important;
+}
+#page-content-wrapper {
+  transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+}

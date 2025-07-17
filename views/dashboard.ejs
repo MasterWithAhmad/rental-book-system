@@ -1,0 +1,122 @@
+<% if (typeof overdueCount !== 'undefined' && overdueCount > 0) { %>
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <strong>Alert:</strong> There are <%= overdueCount %> overdue book(s) that need attention!
+    <a href="/reports/overdue" class="btn btn-sm btn-light ms-3">View Overdue Books</a>
+</div>
+<% } %>
+<% if (typeof lowInventory !== 'undefined' && lowInventory.length > 0) { %>
+<div class="alert alert-warning d-flex align-items-center" role="alert">
+    <i class="bi bi-exclamation-circle me-2"></i>
+    <strong>Low Inventory:</strong>
+    <% if (lowInventory.length > 3) { %>
+      <span class="ms-2">There are <span class="badge bg-danger"><%= lowInventory.length %></span> books low on stock.</span>
+      <a href="/books" class="btn btn-sm btn-light ms-3">View All</a>
+    <% } else { %>
+      <ul class="mb-0 ms-2">
+        <% lowInventory.forEach(book => { %>
+          <li><span class="badge bg-secondary"><%= book.title %></span> <span class="badge bg-danger"><%= book.available_copies %> left</span></li>
+        <% }) %>
+      </ul>
+      <a href="/books" class="btn btn-sm btn-light ms-3">View Books</a>
+    <% } %>
+</div>
+<% } %>
+<% if (typeof expiringMembers !== 'undefined' && expiringMembers.length > 0) { %>
+<div class="alert alert-info d-flex align-items-center" role="alert">
+    <i class="bi bi-calendar-event me-2"></i>
+    <strong>Expiring Memberships:</strong> The following members' memberships are expiring soon:
+    <ul class="mb-0 ms-2">
+      <% expiringMembers.forEach(member => { %>
+        <li><%= member.full_name %> (expires: <%= member.expiry_date.toISOString ? member.expiry_date.toISOString().split('T')[0] : member.expiry_date %>)</li>
+      <% }) %>
+    </ul>
+    <a href="/members" class="btn btn-sm btn-light ms-3">View Members</a>
+</div>
+<% } %>
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="card text-bg-primary mb-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-book fs-1 me-3"></i>
+                    <div>
+                        <h5 class="card-title">Books</h5>
+                        <p class="card-text fs-4"><%= booksCount %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-success mb-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-people fs-1 me-3"></i>
+                    <div>
+                        <h5 class="card-title">Members</h5>
+                        <p class="card-text fs-4"><%= membersCount %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-warning mb-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-arrow-left-right fs-1 me-3"></i>
+                    <div>
+                        <h5 class="card-title">Books Out</h5>
+                        <p class="card-text fs-4"><%= booksOut %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-danger mb-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle fs-1 me-3"></i>
+                    <div>
+                        <h5 class="card-title">Overdue</h5>
+                        <p class="card-text fs-4"><%= overdueCount %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h4 class="mt-5 mb-3">Recent Activity</h4>
+<ul class="list-group">
+    <% if (activity && activity.length > 0) { %>
+      <% activity.forEach(item => { %>
+        <li class="list-group-item">
+          <% if (item.status === 'rented' && !item.returned_at) { %>
+            Member <strong><%= item.member_name %></strong> borrowed <strong>"<%= item.book_title %>"</strong> (<%= item.timeAgo %>)
+          <% } else if (item.status === 'returned') { %>
+            Member <strong><%= item.member_name %></strong> returned <strong>"<%= item.book_title %>"</strong> (<%= item.timeAgo %>)
+          <% } else if (item.status === 'rented' && item.due_date && new Date(item.due_date) < new Date()) { %>
+            Book <strong>"<%= item.book_title %>"</strong> marked as overdue (<%= item.timeAgo %>)
+          <% } %>
+        </li>
+      <% }) %>
+    <% } else { %>
+      <li class="list-group-item">No recent activity.</li>
+    <% } %>
+</ul>
+
+<script>
+// Helper for rendering "time ago" in EJS
+function timeAgo(date) {
+  if (!date) return '';
+  const now = new Date();
+  const then = new Date(date);
+  const diff = Math.floor((now - then) / 1000);
+  if (diff < 60) return diff + ' seconds ago';
+  if (diff < 3600) return Math.floor(diff / 60) + ' minutes ago';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' hours ago';
+  return Math.floor(diff / 86400) + ' days ago';
+}
+</script>

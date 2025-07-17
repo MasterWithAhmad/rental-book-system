@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Overdue Books</h2>
+    <a href="/reports/overdue/export" class="btn btn-outline-success"><i class="bi bi-download"></i> Export CSV</a>
+</div>
+<table class="table table-striped datatable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Member</th>
+            <th>Due Date</th>
+            <th>Rented At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% overdue.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.title %></td>
+                <td><%= item.member %></td>
+                <td><%= item.due_date %></td>
+                <td><%= item.rented_at %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

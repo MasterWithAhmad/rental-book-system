@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Rental History</h2>
+    <a href="/reports/history/export" class="btn btn-outline-success"><i class="bi bi-download"></i> Export CSV</a>
+</div>
+<table class="table table-striped table-hover datatable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Member</th>
+            <th>Rented At</th>
+            <th>Due Date</th>
+            <th>Returned At</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% history.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.title %></td>
+                <td><%= item.member %></td>
+                <td><%= item.rented_at %></td>
+                <td><%= item.due_date %></td>
+                <td><%= item.returned_at %></td>
+                <td><%= item.status %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

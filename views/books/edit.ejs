@@ -1,0 +1,35 @@
+<h2>Edit Book</h2>
+<form action="/books/edit/<%= book.id %>" method="POST" class="row g-3">
+    <div class="col-md-6">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= book.title %>" required>
+    </div>
+    <div class="col-md-6">
+        <label for="author" class="form-label">Author</label>
+        <input type="text" class="form-control" id="author" name="author" value="<%= book.author %>">
+    </div>
+    <div class="col-md-4">
+        <label for="isbn" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="isbn" name="isbn" value="<%= book.isbn %>">
+    </div>
+    <div class="col-md-4">
+        <label for="category_id" class="form-label">Category</label>
+        <select class="form-select" id="category_id" name="category_id">
+            <% categories.forEach(cat => { %>
+                <option value="<%= cat.id %>" <%= cat.id === book.category_id ? 'selected' : '' %>><%= cat.name %></option>
+            <% }) %>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="total_copies" class="form-label">Total Copies</label>
+        <input type="number" class="form-control" id="total_copies" name="total_copies" min="1" value="<%= book.total_copies %>" required>
+    </div>
+    <div class="col-md-2">
+        <label for="available_copies" class="form-label">Available</label>
+        <input type="number" class="form-control" id="available_copies" name="available_copies" min="0" value="<%= book.available_copies %>" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success">Update Book</button>
+        <a href="/books" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,33 @@
+/* Custom DataTables pagination for a modern look */
+.dataTables_wrapper .dataTables_paginate .pagination {
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border: none;
+  background: none;
+  color: #333;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  margin: 0 2px;
+  padding: 0.35rem 0.85rem;
+  transition: background 0.2s, color 0.2s;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: #0d6efd;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(13,110,253,0.08);
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #e9ecef;
+  color: #0d6efd !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+  color: #adb5bd !important;
+  background: none;
+}
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+  padding: 0.35rem 0.85rem;
+  color: #adb5bd;
+}

@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Rentals & Returns</h2>
+    <a href="/rentals/issue" class="btn btn-primary" id="issueBookBtn"><i class="bi bi-plus"></i> Issue Book</a>
+</div>
+<table class="table table-striped datatable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Member</th>
+            <th>Issued By</th>
+            <th>Rented At</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Returned At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% rentals.forEach(rental => { %>
+            <tr>
+                <td><%= rental.id %></td>
+                <td><%= rental.book_title %></td>
+                <td><%= rental.member_name %></td>
+                <td><%= rental.staff_name %></td>
+                <td><%= rental.rented_at ? rental.rented_at.toLocaleString ? rental.rented_at.toLocaleString() : rental.rented_at : '' %></td>
+                <td><%= rental.due_date ? rental.due_date.toLocaleString ? rental.due_date.toLocaleString() : rental.due_date : '' %></td>
+                <td><%= rental.status %></td>
+                <td><%= rental.returned_at ? rental.returned_at.toLocaleString ? rental.returned_at.toLocaleString() : rental.returned_at : '' %></td>
+                <td>
+                    <% if (rental.status === 'rented') { %>
+                        <button class="btn btn-sm btn-warning edit-rental-btn" data-bs-toggle="modal" data-bs-target="#editRentalModal" data-rental-id="<%= rental.id %>"><i class="bi bi-pencil"></i></button>
+                    <% } %>
+                    <form action="/rentals/delete/<%= rental.id %>" method="POST" class="d-inline delete-rental-form">
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

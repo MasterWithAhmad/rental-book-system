@@ -1,0 +1,20 @@
+/* Ensure main content and tables expand fully when sidebar is toggled */
+.container-fluid,
+.dataTables_wrapper,
+.datatable {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.dataTables_wrapper {
+  overflow-x: auto;
+}
+.table {
+  width: 100% !important;
+  min-width: 900px;
+}
+/* Responsive fix for DataTables */
+@media (max-width: 991.98px) {
+  .table {
+    min-width: 600px;
+  }
+}

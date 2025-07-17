@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Inventory Status</h2>
+    <a href="/reports/inventory/export" class="btn btn-outline-success"><i class="bi bi-download"></i> Export CSV</a>
+</div>
+<table class="table table-striped datatable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Total</th>
+            <th>Available</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% inventory.forEach(item => { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.title %></td>
+                <td><%= item.author %></td>
+                <td><%= item.category %></td>
+                <td><%= item.total_copies %></td>
+                <td><%= item.available_copies %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

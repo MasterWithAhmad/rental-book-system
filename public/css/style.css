@@ -1,0 +1,19 @@
+#sidebar-wrapper {
+    min-width: 220px;
+    max-width: 220px;
+    min-height: 100vh;
+}
+#sidebar-wrapper .list-group-item {
+    border: none;
+    transition: background 0.2s, color 0.2s;
+}
+#sidebar-wrapper .list-group-item:hover, #sidebar-wrapper .list-group-item.active {
+    background: #495057;
+    color: #fff;
+}
+#wrapper {
+    min-height: 100vh;
+}
+#page-content-wrapper {
+    flex: 1;
+}
