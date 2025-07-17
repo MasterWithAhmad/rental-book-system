@@ -1,25 +1,132 @@
-<div class="row justify-content-center mt-5">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header text-center">
-        <h3>Staff Login</h3>
-      </div>
-      <div class="card-body">
-        <% if (message && message.length) { %>
-          <div class="alert alert-danger"><%= message %></div>
-        <% } %>
-        <form action="/auth/login" method="POST">
+<div class="login-bg">
+  <div class="d-flex align-items-center justify-content-center min-vh-100 w-100">
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0">
+        <div class="card-header text-center bg-white border-0 pb-0">
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" name="username" id="username" class="form-control" required autofocus>
+            <i class="bi bi-book-half text-primary" style="font-size:2.5rem;"></i>
           </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" id="password" class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
+          <h3 class="fw-bold mb-0">Staff Login</h3>
+          <div class="text-muted small">Rental Book System</div>
+        </div>
+        <div class="card-body p-4">
+          <% if (message && message.length) { %>
+            <div class="alert alert-danger"><%= message %></div>
+          <% } %>
+          <form action="/auth/login" method="POST">
+            <div class="form-floating-icon mb-4">
+              <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus autocomplete="username">
+              <label for="username">Username</label>
+              <span class="input-icon"><i class="bi bi-person"></i></span>
+            </div>
+            <div class="form-floating-icon mb-4">
+              <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
+              <label for="password">Password</label>
+              <button type="button" id="togglePassword" tabindex="-1" class="btn btn-link input-icon-eye" aria-label="Show password">
+                <i class="bi bi-eye" id="eyeIcon"></i>
+              </button>
+              <span class="input-icon"><i class="bi bi-lock"></i></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-2">Login</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+  const eyeIcon = document.getElementById('eyeIcon');
+  if (togglePassword && passwordInput && eyeIcon) {
+    togglePassword.addEventListener('click', function(e) {
+      e.preventDefault();
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      eyeIcon.className = type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+    });
+  }
+});
+</script>
+
+<style>
+.login-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f8fafc 100%);
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  border-radius: 1.2rem;
+}
+.card-header {
+  background: transparent;
+}
+.form-floating-icon {
+  position: relative;
+}
+.form-floating-icon .form-control {
+  border: 1.5px solid #1976d2;
+  border-radius: 0.7rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  height: 3.1rem;
+  background: #f8fafc;
+  transition: border-color 0.2s;
+}
+.form-floating-icon label {
+  position: absolute;
+  top: 0.7rem;
+  left: 2.5rem;
+  color: #1976d2;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.2s;
+  background: #f8fafc;
+  padding: 0 0.2rem;
+}
+.form-floating-icon .form-control:focus + label,
+.form-floating-icon .form-control:not(:placeholder-shown) + label {
+  top: -0.7rem;
+  left: 1.2rem;
+  font-size: 0.85rem;
+  color: #1976d2;
+  background: #f8fafc;
+}
+.input-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1976d2;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+.input-icon-eye {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1976d2;
+  font-size: 1.2rem;
+  z-index: 2;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+.btn-primary {
+  background: #1976d2;
+  border: none;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+</style>
