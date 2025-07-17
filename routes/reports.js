@@ -36,6 +36,8 @@ router.get('/overdue', async (req, res) => {
 // Rental history report
 router.get('/history', async (req, res) => {
     let history;
+    let rentalsPerMonth = [];
+    let months = [];
     if (isAdmin(req)) {
         [history] = await pool.query(`
             SELECT rentals.id, books.title, members.full_name AS member, rentals.rented_at, rentals.due_date, rentals.returned_at, rentals.status
@@ -44,6 +46,16 @@ router.get('/history', async (req, res) => {
             JOIN members ON rentals.member_id = members.id
             ORDER BY rentals.rented_at DESC
         `);
+        // Aggregate rentals per month (last 12 months)
+        const [monthly] = await pool.query(`
+            SELECT DATE_FORMAT(rented_at, '%Y-%m') AS month, COUNT(*) AS count
+            FROM rentals
+            WHERE rented_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+            GROUP BY month
+            ORDER BY month ASC
+        `);
+        months = monthly.map(row => row.month);
+        rentalsPerMonth = monthly.map(row => row.count);
     } else {
         [history] = await pool.query(`
             SELECT rentals.id, books.title, members.full_name AS member, rentals.rented_at, rentals.due_date, rentals.returned_at, rentals.status
@@ -53,8 +65,18 @@ router.get('/history', async (req, res) => {
             WHERE rentals.staff_id = ?
             ORDER BY rentals.rented_at DESC
         `, [req.session.staffId]);
+        // Aggregate rentals per month (last 12 months) for this staff
+        const [monthly] = await pool.query(`
+            SELECT DATE_FORMAT(rented_at, '%Y-%m') AS month, COUNT(*) AS count
+            FROM rentals
+            WHERE rented_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH) AND staff_id = ?
+            GROUP BY month
+            ORDER BY month ASC
+        `, [req.session.staffId]);
+        months = monthly.map(row => row.month);
+        rentalsPerMonth = monthly.map(row => row.count);
     }
-    res.render('reports/history', { title: 'Rental History', history });
+    res.render('reports/history', { title: 'Rental History', history, rentalsPerMonth, months });
 });
 
 // Inventory status report

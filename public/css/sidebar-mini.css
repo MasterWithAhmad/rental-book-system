@@ -36,16 +36,7 @@
   visibility: hidden; /* Hide the text node */
 }
 #wrapper.sidebar-collapsed #sidebar-wrapper .sidebar-heading::before {
-  content: "\F1A8"; /* Bootstrap Icons book icon (unicode) */
-  font-family: "bootstrap-icons";
-  font-size: 1.7rem;
-  color: #fff;
-  display: block;
-  text-align: center;
-  line-height: 48px;
-  visibility: visible;
-  position: absolute;
-  left: 0; right: 0; top: 0; bottom: 0;
+  content: none;
 }
 #sidebar-wrapper .list-group {
   width: 100%;
