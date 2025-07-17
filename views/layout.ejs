@@ -15,9 +15,10 @@
 <link href="/css/sidebar-mini.css" rel="stylesheet">
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 </head>
 <body>
+<% var success = typeof success !== 'undefined' ? success : []; %>
+<% var error = typeof error !== 'undefined' ? error : []; %>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <% if (staffId) { %>
@@ -82,14 +83,14 @@
 <script src="/js/sweetalert-delete.js"></script>
 <script src="/js/modal-ajax.js"></script>
 <script src="/js/sidebar.js"></script>
-<% if (typeof success !== 'undefined' && success) { %>
+<% if (success && success.length && success[0]) { %>
 <script>
-Swal.fire({ icon: 'success', title: 'Success', text: '<%= success %>' });
+Swal.fire({ icon: 'success', title: 'Success', text: '<%= success[0] %>' });
 </script>
 <% } %>
-<% if (typeof error !== 'undefined' && error) { %>
+<% if (error && error.length && error[0]) { %>
 <script>
-Swal.fire({ icon: 'error', title: 'Error', text: '<%= error %>' });
+Swal.fire({ icon: 'error', title: 'Error', text: '<%= error[0] %>' });
 </script>
 <% } %>
 </body>

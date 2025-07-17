@@ -1,6 +1,6 @@
-// Initialize DataTables for all tables with .datatable class
+// Initialize DataTables for all tables with .datatable class and #booksTable
 $(document).ready(function() {
-  $('.datatable').DataTable({
+  $('.datatable, #booksTable').DataTable({
     pageLength: 10,
     lengthMenu: [5, 10, 25, 50, 100],
     ordering: true,

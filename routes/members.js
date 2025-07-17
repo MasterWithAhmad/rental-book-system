@@ -15,7 +15,12 @@ router.get('/', async (req, res) => {
     } else {
         [members] = await pool.query('SELECT * FROM members WHERE staff_id = ?', [req.session.staffId]);
     }
-    res.render('members/list', { title: 'Members', members });
+    res.render('members/list', {
+        title: 'Members',
+        members,
+        error: req.flash('error'),
+        success: req.flash('success')
+    });
 });
 
 // Add member form
@@ -79,6 +84,10 @@ router.post('/delete/:id', async (req, res) => {
         await logAudit(req.session.staffId, 'delete_member', `Deleted member: ${req.params.id}`);
         res.redirect('/members');
     } catch (err) {
+        if (err.code === 'ER_ROW_IS_REFERENCED_2' || err.code === 'ER_ROW_IS_REFERENCED') {
+            req.flash('error', 'Cannot delete member: This member has related rentals.');
+            return res.redirect('/members');
+        }
         res.status(500).send('Error deleting member');
     }
 });
