@@ -1,26 +1,53 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Overdue Books</h2>
-    <a href="/reports/overdue/export" class="btn btn-outline-success"><i class="bi bi-download"></i> Export CSV</a>
-</div>
-<table class="table table-striped datatable">
-    <thead>
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle fs-3 text-danger me-2"></i>
+        <h2 class="mb-0">Overdue Books</h2>
+      </div>
+      <a href="/reports/overdue/export" class="btn btn-outline-success"><i class="bi bi-download"></i> Export CSV</a>
+    </div>
+    <table id="overdueTable" class="display w-100">
+      <thead>
         <tr>
-            <th>ID</th>
-            <th>Book</th>
-            <th>Member</th>
-            <th>Due Date</th>
-            <th>Rented At</th>
+          <th>ID</th>
+          <th>Book</th>
+          <th>Member</th>
+          <th>Due Date</th>
+          <th>Rented At</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <% overdue.forEach(item => { %>
-            <tr>
-                <td><%= item.id %></td>
-                <td><%= item.title %></td>
-                <td><%= item.member %></td>
-                <td><%= item.due_date %></td>
-                <td><%= item.rented_at %></td>
-            </tr>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.title %></td>
+            <td><%= item.member %></td>
+            <td><%= item.due_date %></td>
+            <td><%= item.rented_at %></td>
+          </tr>
         <% }) %>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#overdueTable').DataTable({
+    pageLength: 10,
+    lengthMenu: [5, 10, 25, 50, 100],
+    ordering: true,
+    searching: true,
+    responsive: true,
+    language: {
+      search: 'Filter:',
+      lengthMenu: 'Show _MENU_ entries',
+      info: 'Showing _START_ to _END_ of _TOTAL_ entries',
+      paginate: {
+        previous: 'Prev',
+        next: 'Next'
+      }
+    }
+  });
+});
+</script>
