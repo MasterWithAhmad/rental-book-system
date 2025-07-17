@@ -3,16 +3,18 @@ const sidebarWrapper = document.getElementById('sidebar-wrapper');
 const wrapper = document.getElementById('wrapper');
 
 // Restore state on load
-if (sidebarWrapper && wrapper && localStorage.getItem('sidebar-collapsed') === 'true') {
-    sidebarWrapper.classList.add('collapsed');
-    wrapper.classList.add('sidebar-collapsed');
+if (sidebarWrapper && wrapper) {
+    const collapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+    sidebarWrapper.classList.toggle('collapsed', collapsed);
+    wrapper.classList.toggle('sidebar-collapsed', collapsed);
 }
 
 if (sidebarToggle && sidebarWrapper && wrapper) {
     sidebarToggle.addEventListener('click', function () {
-        sidebarWrapper.classList.toggle('collapsed');
-        wrapper.classList.toggle('sidebar-collapsed');
+        const isCollapsed = !sidebarWrapper.classList.contains('collapsed');
+        sidebarWrapper.classList.toggle('collapsed', isCollapsed);
+        wrapper.classList.toggle('sidebar-collapsed', isCollapsed);
         // Save state
-        localStorage.setItem('sidebar-collapsed', sidebarWrapper.classList.contains('collapsed'));
+        localStorage.setItem('sidebar-collapsed', isCollapsed);
     });
 }
