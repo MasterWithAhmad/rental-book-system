@@ -139,13 +139,6 @@ rental-book-system/
 
 ---
 
-## 🖼️ Adding Screenshots
-
-Place your screenshots in the `screenshots/` directory.  
-Recommended names: `login.png`, `dashboard.png`, `reports.png`, `settings.png`, `rentals-and-returns.png`.
-
----
-
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
